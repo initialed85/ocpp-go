@@ -52,7 +52,7 @@ type UnlockConnectorResponse struct {
 // This happens most of the time when there is tension on the charging cable.
 // This means the driver cannot unplug his charging cable from the Charging Station.
 // To help a driver, the CSO can send a UnlockConnectorRequest to the Charging Station.
-//The Charging Station will then try to unlock the connector again and respond with an UnlockConnectorResponse.
+// The Charging Station will then try to unlock the connector again and respond with an UnlockConnectorResponse.
 type UnlockConnectorFeature struct{}
 
 func (f UnlockConnectorFeature) GetFeatureName() string {

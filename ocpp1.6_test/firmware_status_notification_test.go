@@ -2,6 +2,7 @@ package ocpp16_test
 
 import (
 	"fmt"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/firmware"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -38,7 +39,7 @@ func (suite *OcppV16TestSuite) TestFirmwareStatusNotificationE2EMocked() {
 	firmwareStatusNotificationConfirmation := firmware.NewFirmwareStatusNotificationConfirmation()
 	channel := NewMockWebSocket(wsId)
 
-	firmwareListener := MockCentralSystemFirmwareManagementListener{}
+	firmwareListener := &MockCentralSystemFirmwareManagementListener{}
 	firmwareListener.On("OnFirmwareStatusNotification", mock.AnythingOfType("string"), mock.Anything).Return(firmwareStatusNotificationConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(1).(*firmware.FirmwareStatusNotificationRequest)
 		require.True(t, ok)

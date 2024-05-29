@@ -2,12 +2,13 @@ package ocpp16_test
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/localauth"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"time"
 )
 
 // Test
@@ -67,7 +68,7 @@ func (suite *OcppV16TestSuite) TestSendLocalListE2EMocked() {
 	sendLocalListConfirmation := localauth.NewSendLocalListConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	localAuthListListener := MockChargePointLocalAuthListListener{}
+	localAuthListListener := &MockChargePointLocalAuthListListener{}
 	localAuthListListener.On("OnSendLocalList", mock.Anything).Return(sendLocalListConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*localauth.SendLocalListRequest)
 		require.NotNil(t, request)

@@ -66,7 +66,7 @@ func (suite *OcppV16TestSuite) TestSetChargingProfileE2EMocked() {
 	SetChargingProfileConfirmation := smartcharging.NewSetChargingProfileConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	smartChargingListener := MockChargePointSmartChargingListener{}
+	smartChargingListener := &MockChargePointSmartChargingListener{}
 	smartChargingListener.On("OnSetChargingProfile", mock.Anything).Return(SetChargingProfileConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*smartcharging.SetChargingProfileRequest)
 		require.True(t, ok)

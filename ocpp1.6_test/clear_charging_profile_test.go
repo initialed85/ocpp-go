@@ -2,6 +2,7 @@ package ocpp16_test
 
 import (
 	"fmt"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/smartcharging"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"github.com/stretchr/testify/assert"
@@ -52,7 +53,7 @@ func (suite *OcppV16TestSuite) TestClearChargingProfileE2EMocked() {
 	ClearChargingProfileConfirmation := smartcharging.NewClearChargingProfileConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	smartChargingListener := MockChargePointSmartChargingListener{}
+	smartChargingListener := &MockChargePointSmartChargingListener{}
 	smartChargingListener.On("OnClearChargingProfile", mock.Anything).Return(ClearChargingProfileConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*smartcharging.ClearChargingProfileRequest)
 		require.True(t, ok)

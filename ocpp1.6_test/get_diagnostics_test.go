@@ -57,7 +57,7 @@ func (suite *OcppV16TestSuite) TestGetDiagnosticsE2EMocked() {
 	getDiagnosticsConfirmation.FileName = fileName
 	channel := NewMockWebSocket(wsId)
 
-	firmwareListener := MockChargePointFirmwareManagementListener{}
+	firmwareListener := &MockChargePointFirmwareManagementListener{}
 	firmwareListener.On("OnGetDiagnostics", mock.Anything).Return(getDiagnosticsConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*firmware.GetDiagnosticsRequest)
 		require.NotNil(t, request)

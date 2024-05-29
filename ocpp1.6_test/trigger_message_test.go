@@ -2,6 +2,7 @@ package ocpp16_test
 
 import (
 	"fmt"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/remotetrigger"
 	"github.com/stretchr/testify/assert"
@@ -45,7 +46,7 @@ func (suite *OcppV16TestSuite) TestTriggerMessageE2EMocked() {
 	TriggerMessageConfirmation := remotetrigger.NewTriggerMessageConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	remoteTriggerListener := MockChargePointRemoteTriggerListener{}
+	remoteTriggerListener := &MockChargePointRemoteTriggerListener{}
 	remoteTriggerListener.On("OnTriggerMessage", mock.Anything).Return(TriggerMessageConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*remotetrigger.TriggerMessageRequest)
 		require.True(t, ok)

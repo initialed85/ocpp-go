@@ -2,12 +2,13 @@ package ocpp16_test
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/reservation"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"time"
 )
 
 // Test
@@ -55,7 +56,7 @@ func (suite *OcppV16TestSuite) TestReserveNowE2EMocked() {
 	ReserveNowConfirmation := reservation.NewReserveNowConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	reservationListener := MockChargePointReservationListener{}
+	reservationListener := &MockChargePointReservationListener{}
 	reservationListener.On("OnReserveNow", mock.Anything).Return(ReserveNowConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*reservation.ReserveNowRequest)
 		require.True(t, ok)

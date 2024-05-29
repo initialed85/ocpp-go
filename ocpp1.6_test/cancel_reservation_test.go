@@ -41,7 +41,7 @@ func (suite *OcppV16TestSuite) TestCancelReservationE2EMocked() {
 	cancelReservationConfirmation := reservation.NewCancelReservationConfirmation(status)
 	channel := NewMockWebSocket(wsId)
 
-	reservationListener := MockChargePointReservationListener{}
+	reservationListener := &MockChargePointReservationListener{}
 	reservationListener.On("OnCancelReservation", mock.Anything).Return(cancelReservationConfirmation, nil).Run(func(args mock.Arguments) {
 		request, ok := args.Get(0).(*reservation.CancelReservationRequest)
 		require.NotNil(t, request)
